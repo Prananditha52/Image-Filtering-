@@ -1,13 +1,3 @@
-"""dip_hw4_filter.py: Starter file to run howework 4"""
-
-#Example Usage: ./dip_hw4_filter -i Lenna.png
-#Example Usage: python dip_hw4_filter.py -i Lenna.png
-
-
-__author__  = "Pranav Mantini"
-__email__ = "pmantini@uh.edu"
-__version__ = "1.0.0"
-
 import cv2
 import sys
 from Denoise.Filtering import Filtering
