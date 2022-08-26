@@ -7,13 +7,7 @@ from statistics import median
 class Filtering:
 
     def __init__(self, image, filter_name, filter_size, var = None):
-        """initializes the variables of spatial filtering on an input image
-        takes as input:
-        image: the noisy input image
-        filter_name: the name of the mask to use
-        filter_size: integer value of the size of the mask
-        alpha_d: parameter of the alpha trimmed mean filter
-        order: parameter of the order for contra harmonic"""
+
 
         self.image = image
 
@@ -35,10 +29,7 @@ class Filtering:
         self.S_max = 15
 
     def get_arithmetic_mean(self, roi):
-        """Computes the arithmetic mean filter
-        takes as input:
-        kernel: a list/array of intensity values
-        returns the arithmetic mean value in the current kernel"""
+
         row,column=np.shape(roi)
         sum=0
         for i in range(row):
@@ -47,10 +38,7 @@ class Filtering:
         return sum/(row*column)
 
     def get_geometric_mean(self, roi):
-        """Computes the geometric mean filter
-                        takes as input:
-                        kernel: a list/array of intensity values
-                        returns the geometric mean value in the current kernel"""
+
         row, column = np.shape(roi)
         product = 1
         for i in range(row):
@@ -60,10 +48,7 @@ class Filtering:
         return product**temp
 
     def get_local_noise(self, kernel, roi):
-        """Computes the result of local noise reduction
-                        takes as input:
-                        kernel: a list/array of intensity values
-                        returns result of local noise reduction value of the current kernel"""
+
         row, column = np.shape(kernel)
         sum = 0
         for i in range(row):
@@ -78,11 +63,7 @@ class Filtering:
         return  mean,(roi/sd)
 
     def get_median(self, roi):
-        """Computes the median filter
-        takes as input:
-        kernel: a list/array of intensity values
-        returns the median value in the current kernel
-        """
+
         row, column = np.shape(roi)
         temp=list()
         for i in range(row):
@@ -95,12 +76,7 @@ class Filtering:
 
 
     def get_adaptive_median(self, roi,filter_sz):
-        """Computes the adaptive median filtering value
-        Note: Adaptive median filter may involve additional steps, you are welcome to create any additional functions as needed, 
-        and you can change the signature of get_adaptive_median function as well.
-                        takes as input:
-        kernel: a list/array of intensity values        
-        returns the adaptive median filtering value"""
+
 
         window_size=filter_sz
         output=0
@@ -159,24 +135,7 @@ class Filtering:
                 filtered_image[i,j]=self.region(padded_image,i,j,filter_size)
         return np.asarray(filtered_image)
     def filtering(self):
-        """performs filtering on an image containing gaussian or salt & pepper noise
-        returns the denoised image
-        ----------------------------------------------------------
-        Note: Filtering for the purpose of image restoration does not involve convolution.
-        For every pixel in the image, we select a neighborhood of values defined by the kernel and apply a mathematical
-        operation for all the elements with in the kernel. For example, mean, median and etc.
-
-        Steps:
-        1. add the necesssary zero padding to the noisy image that way we have sufficient values to perform the operations
-        on the border pixels. The number of rows and columns of zero padding is defined by the kernel size
-        2. Iterate through the image and every pixel (i,j) gather the neighbors defined by the kernel into a list (or any data structure)
-        3. Pass these values to one of the filters that will compute the necessary mathematical operations (mean, median, etc.)
-        4. Save the results at (i,j) in the ouput image.
-        5. return the output image
-        
-        Please note that the adaptive median filter may involve additional steps, you are welcome to create any additional functions as needed, 
-        and you can change the signature of get_adaptive_median function as well.
-        """
+       
         image=self.image
         filter=self.filter
         filter_name=self.filter_name
